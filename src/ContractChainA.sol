@@ -36,13 +36,28 @@ contract ExecutableSampleChainA is AxelarExecutable {
             destinationChainC,
             destinationAddressC
         );
+        _payGasAndExecuteCall(
+            destinationChain,
+            destinationAddress,
+            payload,
+            gasLimit
+        );
+    }
+
+    // I added this internal function to handle stack too deep error
+    function _payGasAndExecuteCall(
+        string calldata destinationChain,
+        string calldata destinationAddress,
+        bytes memory payload,
+        uint gasLimit
+    ) internal override {
         gasService.payGas{value: msg.value}(
             address(this),
             destinationChain,
             destinationAddress,
             payload,
             gasLimit,
-            true,
+            false,
             msg.sender,
             new bytes(0)
         );

@@ -50,7 +50,7 @@ contract ExecutableSampleChainA is AxelarExecutable {
         string calldata destinationAddress,
         bytes memory payload,
         uint gasLimit
-    ) internal override {
+    ) private {
         gasService.payGas{value: msg.value}(
             address(this),
             destinationChain,

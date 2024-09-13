@@ -20,13 +20,16 @@ contract ExecutableSampleChainA is AxelarExecutable {
     // Call this function to send a message to chain destinationChain and destinationAddress.
     // Also send send the information to chain destinationChainC and destinationAddressC in order to send a message to chain C from chain B
     function sendMessage(
-        string calldata destinationChain,
-        string calldata destinationAddress,
-        string calldata messageToSend,
+        string memory destinationChain,
+        string memory destinationAddress,
+        string memory messageToSend,
         uint gasLimit,
-        string calldata destinationChainC,
-        string calldata destinationAddressC,
-        string calldata messageTochainC
+        string memory destinationChainC,
+        string memory destinationAddressC,
+        string memory messageTochainC,
+        string memory destinationChainD,
+        string memory destinationAddressD,
+        string memory messageTochainD
     ) external payable {
         require(msg.value > 0, "Gas payment is required");
 
@@ -34,7 +37,10 @@ contract ExecutableSampleChainA is AxelarExecutable {
             messageToSend,
             messageTochainC,
             destinationChainC,
-            destinationAddressC
+            destinationAddressC,
+            messageTochainD,
+            destinationChainD,
+            destinationAddressD
         );
         _payGasAndExecuteCall(
             destinationChain,
@@ -46,8 +52,8 @@ contract ExecutableSampleChainA is AxelarExecutable {
 
     // I added this internal function to handle stack too deep error
     function _payGasAndExecuteCall(
-        string calldata destinationChain,
-        string calldata destinationAddress,
+        string memory destinationChain,
+        string memory destinationAddress,
         bytes memory payload,
         uint gasLimit
     ) private {

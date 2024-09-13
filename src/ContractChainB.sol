@@ -27,14 +27,30 @@ contract ExecutableSampleChainB is AxelarExecutable {
         string memory destinationChainC;
         string memory destinationAddressC;
         string memory messageTochainC;
+        string memory destinationChainD;
+        string memory destinationAddressD;
+        string memory messageTochainD;
 
-        (message, messageTochainC, destinationChainC, destinationAddressC) = abi
-            .decode(payload_, (string, string, string, string));
-
-        gateway.callContract(
+        (
+            message,
+            messageTochainC,
             destinationChainC,
             destinationAddressC,
-            abi.encode(messageTochainC)
+            messageTochainD,
+            destinationChainD,
+            destinationAddressD
+        ) = abi.decode(
+            payload_,
+            (string, string, string, string, string, string, string)
         );
+
+        bytes memory payload = abi.encode(
+            messageTochainC,
+            messageTochainD,
+            destinationChainD,
+            destinationAddressD
+        );
+
+        gateway.callContract(destinationChainC, destinationAddressC, payload);
     }
 }

@@ -6,7 +6,7 @@ import "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGate
 import "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IAxelarGasService.sol";
 import "@axelar-network/axelar-gmp-sdk-solidity/contracts/interfaces/IERC20.sol";
 
-contract ExecutableSampleChainC is AxelarExecutable {
+contract ExecutableSampleChainD is AxelarExecutable {
     string public message;
     IAxelarGasService public immutable gasService;
 
@@ -23,14 +23,7 @@ contract ExecutableSampleChainC is AxelarExecutable {
         string calldata sourceAddress_,
         bytes calldata payload_
     ) internal override {
-        string memory destinationChainD;
-        string memory destinationAddressD;
-        string memory messageTochainD;
-
-        (message, messageTochainD, destinationChainD, destinationAddressD) = abi
-            .decode(payload_, (string, string, string, string));
-
-        bytes memory payload = abi.encode(messageTochainD);
-        gateway.callContract(destinationChainD, destinationAddressD, payload);
+        // Decode the payload to retrieve the new message value
+        message = abi.decode(payload_, (string));
     }
 }

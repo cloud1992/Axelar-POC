@@ -30,15 +30,16 @@ contract ExecutableSampleChainF is AxelarExecutable {
             messageToSend,
             messageTochainC,
             destinationChainC,
-            destinationAddressC,
+            destinationAddressC
         );
-        return gasService.estimateGasFee(
-            destinationChain,
-            destinationAddress,
-            payload,
-            gasLimit,
-            new bytes(0)
-        );
+        return
+            gasService.estimateGasFee(
+                destinationChain,
+                destinationAddress,
+                payload,
+                gasLimit,
+                new bytes(0)
+            );
     }
 
     // Call this function to send a message to chain destinationChain and destinationAddress.
@@ -58,7 +59,7 @@ contract ExecutableSampleChainF is AxelarExecutable {
             messageToSend,
             messageTochainC,
             destinationChainC,
-            destinationAddressC,
+            destinationAddressC
         );
         _payGasAndExecuteCall(
             destinationChain,
@@ -87,4 +88,10 @@ contract ExecutableSampleChainF is AxelarExecutable {
         );
         gateway.callContract(destinationChain, destinationAddress, payload);
     }
+
+    function _execute(
+        string calldata sourceChain_,
+        string calldata sourceAddress_,
+        bytes calldata payload_
+    ) internal override {}
 }

@@ -28,21 +28,12 @@ contract ExecutableSampleChainG is AxelarExecutable {
         string memory destinationAddressC;
         string memory messageTochainC;
 
-        (
-            message,
-            messageTochainC,
-            destinationChainC,
-            destinationAddressC
-        ) = abi.decode(
-            payload_,
-            (string, string, string, string)
-        );
+        (message, messageTochainC, destinationChainC, destinationAddressC) = abi
+            .decode(payload_, (string, string, string, string));
 
-        bytes memory payload = abi.encode(
-            messageTochainC,
-        );
+        bytes memory payload = abi.encode(messageTochainC);
 
-        gasService.payGas{value: address(this).value}(
+        gasService.payGas{value: address(this).balance}(
             address(this),
             destinationChainC,
             destinationAddressC,
